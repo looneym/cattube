@@ -1,0 +1,17 @@
+<h1> View a user </h1>
+
+<p>
+  <%= @user.name %>
+</p>
+<p>
+  <%= @user.email %>
+</p>
+<p>
+  <%= @user.access_token %>
+</p>
+<p>
+  <%= @user.refresh_token %>
+</p>
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>
