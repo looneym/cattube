@@ -1,0 +1,25 @@
+
+<h1>Listing subscriptions</h1>
+
+<%= link_to 'New subscription', new_subscription_path %>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Description</th>
+  </tr>
+
+  <% @subscriptions.each do |subscription| %>
+
+  <tr>
+    <td><%= subscription.title %></td>
+    <td><%= subscription.description %></td>
+    <td><%= link_to 'Show', subscription_path(subscription) %></td>
+    <td><%= link_to 'Edit', edit_subscription_path(subscription) %></td>
+    <td><%= link_to 'Destroy', subscription_path(subscription),
+        method: :delete,
+        data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+
+<% end %>
+</table>

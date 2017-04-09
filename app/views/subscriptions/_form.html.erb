@@ -1,0 +1,32 @@
+
+<%= form_for @subscription do |f| %>
+
+  <% if @subscription.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@subscription.errors.count, "error") %> prohibited
+        this subscription from being saved:
+      </h2>
+      <ul>
+        <% @subscription.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <p>
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </p>
+
+  <p>
+    <%= f.label :description %><br>
+    <%= f.text_field :description %>
+  </p>
+
+  <p>
+    <%= f.submit %>
+  </p>
+
+<% end %>
