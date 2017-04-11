@@ -28,7 +28,8 @@ class User < ActiveRecord::Base
           channel_id: c.id,
           title: c.title,
           description: c.description,
-          image_url: c.snippet.thumbnails['default']['url'])
+          image_url: c.snippet.thumbnails['default']['url'],
+          video_count: c.statistics_set.video_count)
         s.save
       end
     end
@@ -42,7 +43,7 @@ class User < ActiveRecord::Base
       cat.channel_ids << s.channel_id
     end
     cat.save
-  end  
+  end
 
 
 end
