@@ -20,14 +20,17 @@ class User < ActiveRecord::Base
   def sync_subscriptions
     access_token = self.oauth_token
     account = Yt::Account.new access_token: access_token
-    account.subscribed_channels.each do |c|
-      s = Subscription.new(
-        user: self,
-        channel_id: c.id,
-        title: c.title,
-        description: c.description,
-        image_url: c.snippet.thumbnails['default']['url'])
-      s.save
+    ActiveRecord::Base.transaction do
+      self.subscriptions.clear
+      account.subscribed_channels.each do |c|
+        s = Subscription.new(
+          user: self,
+          channel_id: c.id,
+          title: c.title,
+          description: c.description,
+          image_url: c.snippet.thumbnails['default']['url'])
+        s.save
+      end
     end
   end
 
