@@ -1,4 +1,24 @@
 
+<script>
+var toggleColour = function(element){
+
+  var nodes = element.childNodes;
+  var input = nodes[1];
+  // console.log(input.checked)
+
+  if (input.checked){
+    // deselect subscription
+    input.checked = false;
+    element.style.backgroundColor = "red";
+  } else {
+    // select subscription
+    input.checked = true;
+    element.style.backgroundColor = "green";
+  }
+
+}
+</script>
+
 <%= form_for @category do |f| %>
 
   <% if @category.errors.any? %>
@@ -25,7 +45,8 @@
   <% @subscriptions.each do |subscription| %>
 
     <div class="column is-one-quarter">
-      <div class="box">
+      <div id="box_<%=subscription.id%>" class="box" onclick="toggleColour(this)">
+      <input type="checkbox" style="display:none"  name="channel_id" value=<%= subscription.channel_id %>>
       <h5 class="title is-5"><%= subscription.title %></h5>
 
       <div class="columns">
