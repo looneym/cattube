@@ -20,6 +20,18 @@
     <%= f.text_field :name %>
   </p>
 
+  <% @subscriptions.each do |subscription| %>
+
+  <tr>
+    <td><input type="checkbox" name="channel_id" value=<%= subscription.channel_id %>></td>
+    <td><%= subscription.title %></td>
+  </br>
+  </tr>
+
+
+
+  <% end %>
+
   <p>
     <%= f.submit %>
   </p>

@@ -1,7 +1,7 @@
 class CategoriesController < ApplicationController
 
   def index
-    @categories = Category.all
+    @categories = current_user.categories
   end
 
   def show
@@ -9,6 +9,7 @@ class CategoriesController < ApplicationController
   end
 
   def new
+    @subscriptions = current_user.subscriptions
     @category = Category.new
   end
 

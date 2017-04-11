@@ -34,5 +34,15 @@ class User < ActiveRecord::Base
     end
   end
 
+  def create_caegory(subscriptions, name)
+    cat = Category.new
+    cat.name = name
+    cat.user = self
+    subscriptions.each do |s|
+      cat.channel_ids << s.channel_id
+    end
+    cat.save
+  end  
+
 
 end
