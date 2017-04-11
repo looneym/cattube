@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 
 gem "omniauth-google-oauth2"
 gem 'yt'
+gem "bulma-rails", "~> 0.4.0"
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")

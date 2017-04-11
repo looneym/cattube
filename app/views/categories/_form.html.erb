@@ -20,17 +20,21 @@
     <%= f.text_field :name %>
   </p>
 
+  <div class="columns is-multiline">
+
   <% @subscriptions.each do |subscription| %>
 
-  <tr>
-    <td><input type="checkbox" name="channel_id" value=<%= subscription.channel_id %>></td>
-    <td><%= subscription.title %></td>
-  </br>
-  </tr>
-
+    <div class="column is-one-quarter">
+      <div class="box">
+      <!-- <input type="checkbox" name="channel_id" value=<%= subscription.channel_id %>></td> -->
+      <p><%= subscription.title %></p>
+      <img src=  <%=subscription.image_url%> />
+    </div>
+  </div>
 
 
   <% end %>
+
 
   <p>
     <%= f.submit %>
