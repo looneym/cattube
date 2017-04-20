@@ -8,4 +8,17 @@ class Category < ApplicationRecord
     self.channel_ids = channel_ids
   end
 
+ # Retrieves the 5 most recent videos from each channel
+  def get_recent_videos
+    # Array to hold all videos for the category
+    category_videos = Array.new
+    self.channel_ids.each do |id|
+      # Array to hold target videos for the channel
+      channel_videos = Array.new
+      chennel_videos = YTClient.getChannelVideos(id)
+      # Push each chanel video into the category videos array
+      channel_videos.each { |video| category_videos << video }
+    end  
+  end
+
 end

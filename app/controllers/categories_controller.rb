@@ -6,6 +6,7 @@ class CategoriesController < ApplicationController
 
   def show
     @category = Category.find(params[:id])
+    @category_videos = @category.get_recent_videos
   end
 
   def new
