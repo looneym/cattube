@@ -14,17 +14,17 @@ class CategoriesController < ApplicationController
   end
 
   def create
+    # extract channel_ids and remove empty strings
     hash_params = category_params.to_h
     ids =  hash_params[:channel_ids][:ids]
     ids.each  {|id| ids.delete(id) if id.blank? }
 
     @category = Category.new(category_params)
-    puts "saving category"
     @user = current_user
     @category.user = @user
-    # @category.channel_ids = ids
+    @category.update_channel_ids(ids)
+    @category.save!
 
-    @category.save
     redirect_to @category
   end
 
@@ -39,8 +39,6 @@ class CategoriesController < ApplicationController
     def category_params
       params.require(:category)
       .permit(:name, :channel_ids => [ :ids => []])
-
     end
-
 
 end
