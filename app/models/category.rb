@@ -18,6 +18,7 @@ class Category < ApplicationRecord
       # Push each chanel video into the category videos array
       channel_videos.each { |video| category_videos << video }
     end
+    category_videos.sort! { |a,b| b.snippet.published_at <=> a.snippet.published_at }
     return category_videos
   end
 
