@@ -61,11 +61,10 @@ var toggleColour = function(element){
 
   <% @subscriptions.each do |subscription| %>
 
-
     <div class="column is-one-quarter">
-      <div id=<%=subscription.id%> class="box" onclick="toggleColour(this)">
+      <div id=<%=subscription.channel_id%> class="box" onclick="toggleColour(this)">
         <%= f.fields_for :channel_ids do |c| %>
-            <%= c.text_field :ids, multiple: true %>
+            <%= c.hidden_field :ids, multiple: true %>
         <% end %>
 
       <h5 class="title is-5"><%= subscription.title %></h5>
