@@ -14,10 +14,15 @@ class CategoriesController < ApplicationController
   end
 
   def create
+    hash_params = category_params.to_h
+    ids =  hash_params[:channel_ids][:ids]
+    ids.each  {|id| ids.delete(id) if id.blank? }
+
     @category = Category.new(category_params)
     puts "saving category"
-    @user = User.find(1)
+    @user = current_user
     @category.user = @user
+    # @category.channel_ids = ids
 
     @category.save
     redirect_to @category
@@ -32,8 +37,10 @@ class CategoriesController < ApplicationController
 
   private
     def category_params
-      params.require(:category).permit(
-        :name)
+      params.require(:category)
+      .permit(:name, :channel_ids => [ :ids => []])
+
     end
+
 
 end

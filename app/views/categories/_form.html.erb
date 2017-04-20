@@ -2,19 +2,32 @@
 <script>
 var toggleColour = function(element){
 
+
+
+
   var nodes = element.childNodes;
   var input = nodes[1];
-  // console.log(input.checked)
 
-  if (input.checked){
-    // deselect subscription
-    input.checked = false;
-    element.style.backgroundColor = "red";
+  if (input.value){
+    console.log("has a vaulue")
+      // deselect subscription
+      input.value = null;
+      element.style.backgroundColor = null;
   } else {
     // select subscription
-    input.checked = true;
+    input.value = element.id;
     element.style.backgroundColor = "green";
   }
+
+  // if (input.checked){
+  //   // deselect subscription
+  //   input.checked = false;
+  //   element.style.backgroundColor = null;
+  // } else {
+  //   // select subscription
+  //   input.checked = true;
+  //   element.style.backgroundColor = "green";
+  // }
 
 }
 </script>
@@ -40,13 +53,21 @@ var toggleColour = function(element){
     <%= f.text_field :name %>
   </p>
 
+  <p>
+    <%= f.submit %>
+  </p>
+
   <div class="columns is-multiline">
 
   <% @subscriptions.each do |subscription| %>
 
+
     <div class="column is-one-quarter">
-      <div id="box_<%=subscription.id%>" class="box" onclick="toggleColour(this)">
-      <input type="checkbox" style="display:none"  name="channel_id" value=<%= subscription.channel_id %>>
+      <div id=<%=subscription.id%> class="box" onclick="toggleColour(this)">
+        <%= f.fields_for :channel_ids do |c| %>
+            <%= c.text_field :ids, multiple: true %>
+        <% end %>
+
       <h5 class="title is-5"><%= subscription.title %></h5>
 
       <div class="columns">
@@ -64,10 +85,4 @@ var toggleColour = function(element){
 
 
   <% end %>
-
-
-  <p>
-    <%= f.submit %>
-  </p>
-
 <% end %>
