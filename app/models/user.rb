@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
     end
   end
 
+  # TODO: extract the API specific logic to the designated modules in lib
   def sync_subscriptions
     access_token = self.oauth_token
     account = Yt::Account.new access_token: access_token
