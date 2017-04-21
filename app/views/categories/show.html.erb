@@ -1,17 +1,32 @@
-
-<p>
-  <%= @category.name %>
-</p>
-
-
-<% @category_videos.each do |video| %>
-
-
-<% end %>
-
-
-<%= link_to 'Edit', edit_category_path(@category) %>
-<br/>
+<div class="card">
+  <div class="card-content">
+    <p class="title">
+      <%= @category.name %>
+    </p>
+    <p class="subtitle">
+      Featuring videos from
+    </p>
+  </div>
+  <!-- <footer class="card-footer">
+    <p class="card-footer-item">
+      <span>
+        <%= link_to 'Edit', edit_category_path(@category) %>
+      </span>
+    </p>
+    <p class="card-footer-item">
+      <span>
+        <%= link_to 'Delete', category_path(@category),
+                method: :delete,
+                data: { confirm: 'Are you sure?' } %>
+      </span>
+    </p>
+    <p class="card-footer-item">
+      <span>
+        <a href="#">Share</a>
+      </span>
+    </p>
+  </footer> -->
+</div>
 
 <div class="tabs is-centered">
   <ul>
