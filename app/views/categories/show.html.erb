@@ -1,4 +1,3 @@
-<h1> View a category </h1>
 
 <p>
   <%= @category.name %>
@@ -11,10 +10,38 @@
 <% end %>
 
 
-<%= link_to 'Edit', edit_category_path(@category) %> |
-<%= link_to 'Back', categories_path %>
-
+<%= link_to 'Edit', edit_category_path(@category) %>
 <br/>
+
+<div class="tabs is-centered">
+  <ul>
+    <li class="is-active">
+      <a>
+        <span class="icon is-small"><i class="fa fa-image"></i></span>
+        <span>New</span>
+      </a>
+    </li>
+    <li>
+      <a>
+        <span class="icon is-small"><i class="fa fa-music"></i></span>
+        <span>Top</span>
+      </a>
+    </li>
+    <li>
+      <a>
+        <span class="icon is-small"><i class="fa fa-film"></i></span>
+        <span>Chronological</span>
+      </a>
+    </li>
+    <li>
+      <a>
+        <span class="icon is-small"><i class="fa fa-file-text-o"></i></span>
+        <span>Random</span>
+      </a>
+    </li>
+  </ul>
+</div>
+
 
 <div id="player"></div>
 
