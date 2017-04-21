@@ -1,10 +1,12 @@
+<% channel_subscriptions = get_subscriptions_from_ids %>
+
 <div class="card">
   <div class="card-content">
     <p class="title">
       <%= @category.name %>
     </p>
     <p class="subtitle">
-      Featuring videos from
+      <%= get_channel_description_string %>
     </p>
   </div>
   <!-- <footer class="card-footer">
