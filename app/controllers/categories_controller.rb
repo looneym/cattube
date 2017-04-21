@@ -7,6 +7,11 @@ class CategoriesController < ApplicationController
   def show
     @category = Category.find(params[:id])
     @category_videos = @category.get_recent_videos
+    @category_video_ids = Array.new
+    @category_videos.each do |v|
+      @category_video_ids.push(v.id)
+    end
+    @category_video_ids = @category_video_ids.to_json
   end
 
   def new
