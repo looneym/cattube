@@ -18,12 +18,11 @@
             <a class="nav-item">
               <img src="http://i.imgur.com/ioE35wV.png" alt="Bulma logo">
             </a>
-            <a class="nav-item is-tab is-hidden-mobile is-active">Home</a>
+            <!-- <a class="nav-item is-tab is-hidden-mobile is-active">Home</a> -->
             <% if current_user %>
             <a class="nav-item is-tab is-hidden-mobile" href=<%=categories_path%> >View Categories</a>
             <a class="nav-item is-tab is-hidden-mobile" href=<%=new_category_path%>>New Category</a>
             <% end %>
-            <a class="nav-item is-tab is-hidden-mobile">About</a>
           </div>
           <span class="nav-toggle">
             <span></span>
