@@ -23,4 +23,11 @@ Rails.application.routes.draw do
 
   root to: "home#show"
 
+  scope '/api' do
+     scope '/video' do
+       get '/:id' => 'api#show'
+       post '/' => 'api_projects#create'
+     end
+   end
+
 end
