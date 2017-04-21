@@ -1,22 +1,61 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Google Auth Example App</title>
+    <title>Cattube</title>
     <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
     <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <div>
-      <% if current_user %>
-        Signed in as <strong><%= current_user.name %></strong>!
-        <%= link_to "Sign out", signout_path, id: "sign_out" %>
-      <% else %>
-        <%= link_to "Sign in with Google", "/auth/google_oauth2", id: "sign_in" %>
-      <% end %>
-    </div>
-    <div>
+
+
+
+
+
+      <nav class="nav has-shadow">
+        <div class="container">
+          <div class="nav-left">
+            <a class="nav-item">
+              <img src="http://i.imgur.com/ioE35wV.png" alt="Bulma logo">
+            </a>
+            <a class="nav-item is-tab is-hidden-mobile is-active">Home</a>
+            <% if current_user %>
+            <a class="nav-item is-tab is-hidden-mobile" href=<%=categories_path%> >View Categories</a>
+            <a class="nav-item is-tab is-hidden-mobile" href=<%=new_category_path%>>New Category</a>
+            <% end %>
+            <a class="nav-item is-tab is-hidden-mobile">About</a>
+          </div>
+          <span class="nav-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+          <div class="nav-right nav-menu">
+            <% if current_user %>
+            <a class="nav-item is-tab">
+              <figure class="image is-16x16" style="margin-right: 8px;">
+                <!-- <img src="http://bulma.io/images/jgthms.png"> -->
+              </figure>
+              <%= current_user.name %>
+            </a>
+            <a class="nav-item is-tab" href="<%= signout_path %>">Log out</a>
+            <% else %>
+              <a class="nav-item is-tab" href="/auth/google_oauth2">Log in / Sign up</a>
+            <% end %>
+
+          </div>
+        </div>
+      </nav>
+
+
+
+
     <%= yield %>
+
+
+
+
+
     </div>
   </body>
 </html>
