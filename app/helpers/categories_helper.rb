@@ -15,7 +15,7 @@ module CategoriesHelper
               channel_subscriptions.second.title  + " and " + channel_subscriptions.third.title
     elsif channel_subscriptions.count > 3
       str = "Featuring videos from " + channel_subscriptions.first.title + ", " +
-              channel_subscriptions.second.title  + " and "  + channel_subscriptions.count - 2 + " more"
+              channel_subscriptions.second.title  + " and "  + (channel_subscriptions.count - 2).to_s + " more"
     end
     return str
   end
