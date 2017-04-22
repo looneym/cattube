@@ -1,0 +1,2 @@
+class CategorySubscription < ApplicationRecord
+end

@@ -76,9 +76,8 @@
   function video(video_id){
     this.video_id = video_id;
     this.getDetails = function (callback) {
-      $.post("http://localhost:4567/yt-api/video", { video_id: this.video_id },
+      $.get("http://localhost:3000/api/video/" + this.video_id,
         function(result) {
-          result = JSON.parse(result);
           console.log(result);
           current_video.title = result.data.title;
           current_video.channel_title = result.data.channelTitle;

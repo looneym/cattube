@@ -1,0 +1,31 @@
+user --> Category (name, id) -->  categoryChannel (cat id, channel_id ) --> channel (id title, URL)
+ |
+ -> user_subscriptions
+
+ cat = Category.new()
+ cat.user = u
+ for s in user_subscriptions do
+   Channel.new(s) unless Channel.where(channel_id: s.channel_id).exists?
+   CatergoryChannel.new(cat.id, s.channel_id)
+
+
+  cat_id = user.categorry.first
+  cat_channels = categoryChannel.where(cat_id: cat_id)
+  channels = channels.where(id: cat_channels)
+
+  ====================
+
+  user --> Category (name, id) -->  categorysubscription (cat id, subscription_id ) --> subscription (id title, URL)
+   |
+   -> user_subscriptions
+
+   cat = Category.new()
+   cat.user = u
+   for s in user_subscriptions do
+     subscription.new(s) unless subscription.where(subscription_id: s.subscription_id).exists?
+     Catergorysubscription.new(cat.id, s.subscription_id)
+
+
+    cat_id = user.categorry.first
+    cat_subscriptions = categorysubscription.where(cat_id: cat_id)
+    subscriptions = subscriptions.where(id: cat_subscriptions)
