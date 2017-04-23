@@ -2,14 +2,6 @@ class Category < ApplicationRecord
   belongs_to :user
   has_many :category_subscriptions
 
-
- # ActiveRecord will refuse to presist changes to arrays unless
- # this will_change! method is used
-  def update_channel_ids(channel_ids)
-    self.channel_ids_will_change!
-    self.channel_ids = channel_ids
-  end
-
   def get_subscriptions
     subscriptions =  Array.new
     cat_subs = CategorySubscription.where(category_id: self)
