@@ -31,7 +31,7 @@ class CategoriesController < ApplicationController
 
 
     @category = Category.new()
-    @category.name = params[:name]
+    @category.name = hash_params[:name]
     @user = current_user
     @category.user = @user
     # @category.update_channel_ids(ids)

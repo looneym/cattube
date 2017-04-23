@@ -10,13 +10,25 @@ class Category < ApplicationRecord
     self.channel_ids = channel_ids
   end
 
+  def get_subscriptions
+    subscriptions =  Array.new
+    cat_subs = CategorySubscription.where(category_id: self)
+    cat_subs.each do |cs|
+      subscriptions <<   Subscription.find(cs)
+    end
+    return subscriptions
+  end
+
  # Retrieves the 5 most recent videos from each channel
   def get_recent_videos
     # Array to hold all videos for the category
     category_videos = Array.new
-    self.channel_ids.each do |id|
+    cat_subs = CategorySubscription.where(category_id: self)
+    cat_subs.each do |cs|
       # Array to hold target videos for the channel
-      channel_videos = YTClient.getChannelVideos(id)
+      sub = Subscription.find(cs)
+      channel_id = sub.channel_id
+      channel_videos = YTClient.getChannelVideos(channel_id)
       # Push each chanel video into the category videos array
       channel_videos.each { |video| category_videos << video }
     end
