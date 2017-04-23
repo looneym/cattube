@@ -1,9 +1,10 @@
 module YTClient
   require 'yt'
 
-    # TODO: Use an environment variable here instead
+    API_KEY = ENV["YT_API_KEY"]
+
     def self.getChannelVideos(id)
-      Yt.configuration.api_key = "AIzaSyCUDS_fklJJz1h5CbNEIwkKk-fACM4v6ac"
+      Yt.configuration.api_key = API_KEY
       channel = Yt::Channel.new id: id
       channel.videos.take(5)
     end
@@ -14,7 +15,7 @@ module YTClient
     end
 
     def self.getVideo(id)
-      Yt.configuration.api_key = "AIzaSyCUDS_fklJJz1h5CbNEIwkKk-fACM4v6ac"
+      Yt.configuration.api_key = API_KEY
       video = Yt::Video.new id: id
       return video.snippet
     end
