@@ -8,7 +8,7 @@ module YTClient
       channel.videos.take(5)
     end
 
-    def getUserSubscriptions(user)
+    def self.getUserSubscriptions(user)
       account = Yt::Account.new access_token: user.oauth_token
       account.subscribed_channels
     end

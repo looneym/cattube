@@ -1,12 +1,9 @@
-require 'json'
-
 class User < ActiveRecord::Base
   has_many :user_subscriptions
   has_many :category_subscriptions
   has_many :categories
 
   def self.from_omniauth(auth)
-    puts auth.to_json
     where(provider: auth.provider, uid: auth.uid).first_or_initialize.tap do |user|
       user.provider = auth.provider
       user.uid = auth.uid
@@ -18,21 +15,19 @@ class User < ActiveRecord::Base
     end
   end
 
-  # TODO: extract the API specific logic to the designated modules in lib
   def sync_user_subscriptions
-    access_token = self.oauth_token
-    account = Yt::Account.new access_token: access_token
+    subscriptions = YTClient::getUserSubscriptions(self)
     ActiveRecord::Base.transaction do
       self.user_subscriptions.clear
-      account.subscribed_channels.each do |c|
-        s = UserSubscription.new(
+      subscriptions.each do |c|
+        user_subscripton = UserSubscription.new(
           user: self,
           channel_id: c.id,
           title: c.title,
           description: c.description,
           image_url: c.snippet.thumbnails['default']['url'],
           video_count: c.statistics_set.video_count)
-        s.save
+        user_subscripton.save!
       end
     end
   end
