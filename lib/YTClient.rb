@@ -13,4 +13,10 @@ module YTClient
       account.subscribed_channels
     end
 
+    def self.getVideo(id)
+      Yt.configuration.api_key = "AIzaSyCUDS_fklJJz1h5CbNEIwkKk-fACM4v6ac"
+      video = Yt::Video.new id: id
+      return video.snippet
+    end
+
 end
