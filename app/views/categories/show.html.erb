@@ -4,21 +4,36 @@
     max-width: 640px;
 }
 
+.hidden {
+display: none;
+
+}
 
 
 
 </style>
+
+<script>
+
+function toggleDescription(){
+  $( "#description-content" ).toggle();
+}
+
+
+</script>
 
 <div class="lightnt">
 
 <div class="card ">
   <div class="card-content">
     <p class="title ">
-      <%= @category.name %>
+      <%= @category.name %> <i onClick="toggleDescription()"  class="card-header-icon fa fa-ellipsis-h"></i>
     </p>
+    <div id="description-content" class="hidden">
     <p class="subtitle ">
       <%= get_channel_description_string %>
     </p>
+  </div>
   </div>
   <!-- <footer class="card-footer">
     <p class="card-footer-item">
