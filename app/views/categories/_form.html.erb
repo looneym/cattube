@@ -59,22 +59,22 @@ var toggleColour = function(element){
 
   <div class="columns is-multiline">
 
-  <% @subscriptions.each do |subscription| %>
+  <% @user_subscriptions.each do |user_subscription| %>
 
     <div class="column is-one-quarter">
-      <div id=<%=subscription.channel_id%> class="box" onclick="toggleColour(this)">
+      <div id=<%=user_subscription.channel_id%> class="box" onclick="toggleColour(this)">
         <%= f.fields_for :channel_ids do |c| %>
             <%= c.hidden_field :ids, multiple: true %>
         <% end %>
 
-      <h5 class="title is-5"><%= subscription.title %></h5>
+      <h5 class="title is-5"><%= user_subscription.title %></h5>
 
       <div class="columns">
         <div class ="column">
-          <img src=  <%=subscription.image_url%> />
+          <img src=  <%=user_subscription.image_url%> />
         </div>
         <div class="column">
-          <p> Videos: <%= subscription.video_count%> </p>
+          <p> Videos: <%= user_subscription.video_count%> </p>
           <a href=#> View on YouTube </a>
         </div>
       </div>

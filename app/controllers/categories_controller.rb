@@ -15,21 +15,38 @@ class CategoriesController < ApplicationController
   end
 
   def new
-    @subscriptions = current_user.subscriptions
+    @user_subscriptions = current_user.user_subscriptions
     @category = Category.new
   end
 
   def create
     # extract channel_ids and remove empty strings
     hash_params = category_params.to_h
+    # ids =  hash_params[:channel_ids][:subscription_id]
     ids =  hash_params[:channel_ids][:ids]
+
     ids.each  {|id| ids.delete(id) if id.blank? }
 
-    @category = Category.new(category_params)
+
+
+
+    @category = Category.new()
+    @category.name = params[:name]
     @user = current_user
     @category.user = @user
-    @category.update_channel_ids(ids)
+    # @category.update_channel_ids(ids)
     @category.save!
+
+    ids.each do |id|
+      s = Subscription.new()
+      s.channel_id = id
+      s.user_id = current_user.id
+      s.save!
+      cs = CategorySubscription.new
+      cs.category = @category
+      cs.subscription_id = s.id
+      cs.save!
+    end
 
     redirect_to @category
   end

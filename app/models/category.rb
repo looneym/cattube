@@ -1,5 +1,7 @@
 class Category < ApplicationRecord
   belongs_to :user
+  has_many :category_subscriptions
+
 
  # ActiveRecord will refuse to presist changes to arrays unless
  # this will_change! method is used
