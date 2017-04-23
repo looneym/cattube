@@ -9,6 +9,9 @@ display: none;
 
 }
 
+.underlined {
+    text-decoration: underline;
+}
 
 
 </style>
@@ -27,7 +30,7 @@ function toggleDescription(){
 <div class="card ">
   <div class="card-content">
     <p class="title ">
-      <%= @category.name %> <i onClick="toggleDescription()"  class="card-header-icon fa fa-ellipsis-h"></i>
+      <%= @category.name %> <span onClick="toggleDescription()" class="title is-6 underlined"> more...</span>
     </p>
     <div id="description-content" class="hidden">
     <p class="subtitle ">
