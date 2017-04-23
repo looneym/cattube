@@ -162,7 +162,7 @@ function toggleDescription(){
    });
   }
   function onPlayerReady(event) {
-    event.target.cuePlaylist(<%= raw(@category_video_ids) %>);
+    event.target.cuePlaylist(<%= raw(@recent_video_ids) %>);
   }
   var current_video = {};
   current_video.video_id = null;
