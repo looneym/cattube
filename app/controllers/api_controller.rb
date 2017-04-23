@@ -5,4 +5,5 @@ class ApiController < ApplicationController
     video = YTClient.getVideo(video_id)
     render :json => video
   end
+  
 end
