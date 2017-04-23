@@ -21,8 +21,8 @@ user --> Category (name, id) -->  categoryChannel (cat id, channel_id ) --> chan
 
    cat = Category.new()
    cat.user = u
-   for s in user_subscriptions do
-     subscription.new(s) unless subscription.where(subscription_id: s.subscription_id).exists?
+   for s in subscriptions do
+     subscription.new(s)
      Catergorysubscription.new(cat.id, s.subscription_id)
 
 

@@ -1,10 +1,22 @@
 
-<div class="card">
+<style>
+.player-size {
+    max-width: 640px;
+}
+
+
+
+
+</style>
+
+<div class="lightnt">
+
+<div class="card ">
   <div class="card-content">
-    <p class="title">
+    <p class="title ">
       <%= @category.name %>
     </p>
-    <p class="subtitle">
+    <p class="subtitle ">
       <%= get_channel_description_string %>
     </p>
   </div>
@@ -28,8 +40,9 @@
     </p>
   </footer> -->
 </div>
+<div class="column is-half is-offset-one-quarter">
 
-<div class="tabs is-centered">
+<div class="tabs is-centered is-small is-toggle white">
   <ul>
     <li class="is-active">
       <a>
@@ -57,19 +70,48 @@
     </li>
   </ul>
 </div>
-
-
-<div class="columns is-mobile">
-  <div id="player" class="column is-half is-offset-one-quarter"></div>
 </div>
 
 
+<div class="columns is-mobile ">
 
-<div id="current-video-info-card">
-  <h1 id="current-video-title" ></h1>
-  <div id="current-video-description">
+  <div class="column is-half is-offset-one-quarter">
+
+
+    <div id="player" ></div>
+
+
+    <div class="card player-size ">
+      <div class="card-content">
+        <p class="title " id="current-video-title"></p>
+        <p class="subtitle " id="current-video-channel-title" ></p>
+        <p class="subtitle " id="current-video-published-at" ></p>
+      </div>
+    </div>
+
+
   </div>
+
 </div>
+
+</div>
+
+<!-- <div class="card">
+  <div class="card-content">
+    <p class="title" id="current-video-title"></p>
+    <p class="subtitle" id="current-video-channel-title" ></p>
+    <p class="subtitle" id="current-video-published-at" ></p>
+  </div>
+</div> -->
+
+
+
+
+<!-- <div id="current-video-info-card">
+  <h1 id="current-video-title" ></h1>
+  <div id="current-video-channel-title"></div>
+  <div ></div>
+</div> -->
 
 <script>
   function video(video_id){
@@ -114,6 +156,16 @@
         current_video.getDetails(updateInfoCard);
       }
     }
+    if (event.data == YT.PlayerState.CUED ) {
+      console.log("video cued");
+      video_id = getVideoId(player.getVideoUrl());
+      current_video = new video(video_id);
+      current_video.getDetails(updateInfoCard);
+
+
+
+
+    }
   }
   function getVideoId(url){
     var regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
@@ -126,6 +178,8 @@
   };
   function updateInfoCard(current_video){
     $("#current-video-title").html(current_video.title);
+    $("#current-video-channel-title").html(current_video.channel_title);
+    $("#current-video-published-at").html(current_video.published_at);
     $("#current-video-description").html(current_video.description);
   }
 </script>
