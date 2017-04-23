@@ -15,23 +15,21 @@ class CategoriesController < ApplicationController
   end
 
   def create
+
+    # TODO: should this be seperated out or put in the params method?
     # extract channel_ids and remove empty strings
     hash_params = category_params.to_h
-    # ids =  hash_params[:channel_ids][:subscription_id]
     ids =  hash_params[:channel_ids][:ids]
-
     ids.each  {|id| ids.delete(id) if id.blank? }
 
-
-
-
+    # TODO: this seems excessivly verbose, clean up?
     @category = Category.new()
     @category.name = hash_params[:name]
     @user = current_user
     @category.user = @user
-    # @category.update_channel_ids(ids)
     @category.save!
 
+    # TODO: there should be a method to copy us -> s
     ids.each do |id|
       s = Subscription.new()
       us = UserSubscription.where(channel_id: id, user: current_user).first
