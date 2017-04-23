@@ -14,7 +14,7 @@ class Category < ApplicationRecord
     subscriptions =  Array.new
     cat_subs = CategorySubscription.where(category_id: self)
     cat_subs.each do |cs|
-      subscriptions <<   Subscription.find(cs)
+      subscriptions << Subscription.find(cs.subscription_id)
     end
     return subscriptions
   end
@@ -26,7 +26,7 @@ class Category < ApplicationRecord
     cat_subs = CategorySubscription.where(category_id: self)
     cat_subs.each do |cs|
       # Array to hold target videos for the channel
-      sub = Subscription.find(cs)
+      sub = Subscription.find(cs.subscription_id)
       channel_id = sub.channel_id
       channel_videos = YTClient.getChannelVideos(channel_id)
       # Push each chanel video into the category videos array

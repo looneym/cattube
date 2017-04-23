@@ -39,6 +39,13 @@ class CategoriesController < ApplicationController
 
     ids.each do |id|
       s = Subscription.new()
+      us = UserSubscription.where(channel_id: id, user: current_user).first
+      puts us
+      puts us.title
+      s.title = us.title
+      s.description = us.description
+      s.image_url = us.image_url
+      s.video_count = us.video_count
       s.channel_id = id
       s.user_id = current_user.id
       s.save!
