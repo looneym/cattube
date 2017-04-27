@@ -29,19 +29,13 @@ class CategoriesController < ApplicationController
     @category.user = @user
     @category.save!
 
-    # TODO: there should be a method to copy us -> s
     ids.each do |id|
-      s = Subscription.new()
+      # Create a new Subscription from the UserSubscription 
       us = UserSubscription.where(channel_id: id, user: current_user).first
-      puts us
-      puts us.title
-      s.title = us.title
-      s.description = us.description
-      s.image_url = us.image_url
-      s.video_count = us.video_count
-      s.channel_id = id
-      s.user_id = current_user.id
+      s = Subscription.new()
+      s.createFromUserSubscription(us)
       s.save!
+      # relationship entity to link Category and Subscription entities
       cs = CategorySubscription.new
       cs.category = @category
       cs.subscription_id = s.id
