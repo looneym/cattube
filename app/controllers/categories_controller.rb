@@ -15,20 +15,12 @@ class CategoriesController < ApplicationController
   end
 
   def create
-
-    # TODO: should this be seperated out or put in the params method?
-    # extract channel_ids and remove empty strings
-    hash_params = category_params.to_h
-    ids =  hash_params[:channel_ids][:ids]
-    ids.each  {|id| ids.delete(id) if id.blank? }
-
-    # TODO: this seems excessivly verbose, clean up?
-    @category = Category.new()
-    @category.name = hash_params[:name]
-    @user = current_user
-    @category.user = @user
+    @category = Category.new(
+      name: params[:name], 
+      user: current_user )
     @category.save!
-
+             
+    ids = extract_ids
     ids.each do |id|
       # Create a new Subscription from the UserSubscription 
       us = UserSubscription.where(channel_id: id, user: current_user).first
@@ -36,9 +28,9 @@ class CategoriesController < ApplicationController
       s.createFromUserSubscription(us)
       s.save!
       # relationship entity to link Category and Subscription entities
-      cs = CategorySubscription.new
-      cs.category = @category
-      cs.subscription_id = s.id
+      cs = CategorySubscription.new(
+        category: @category,
+        subscription_id: s.id)
       cs.save!
     end
 
@@ -56,6 +48,13 @@ class CategoriesController < ApplicationController
     def category_params
       params.require(:category)
       .permit(:name, :channel_ids => [ :ids => []])
+    end
+
+    def extract_ids
+      hash_params = category_params.to_h
+      ids =  hash_params[:channel_ids][:ids]
+      ids.each  {|id| ids.delete(id) if id.blank? }
+      return ids
     end
 
 end
