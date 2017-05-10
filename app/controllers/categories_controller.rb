@@ -16,7 +16,7 @@ class CategoriesController < ApplicationController
 
   def create
     @category = Category.new(
-      name: params[:name], 
+      name: params[:category][:name], 
       user: current_user )
     @category.save!
              
