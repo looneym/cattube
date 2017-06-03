@@ -13,6 +13,7 @@
 !/log/.keep
 !/tmp/.keep
 *.swp
+*.swo
 
 # Ignore Byebug command history file.
 .byebug_history
