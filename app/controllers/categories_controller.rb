@@ -4,6 +4,11 @@ class CategoriesController < ApplicationController
     @categories = current_user.categories
   end
 
+  def edit
+    @user_subscriptions = current_user.user_subscriptions
+    @category = Category.find(params[:id])
+  end
+
   def show
     @category = Category.find(params[:id])
     @recent_video_ids = @category.get_recent_videos.to_json
