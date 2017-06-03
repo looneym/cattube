@@ -31,9 +31,7 @@ var toggleColour = function(element){
 
 }
 </script>
-
-<section class="section">
-</section>
+<br>
 <div class="container"> 
 <%= form_for @category do |f| %>
 
@@ -51,6 +49,11 @@ var toggleColour = function(element){
     </div>
   <% end %>
 
+<div class="card">
+  <div class="card-content">
+    <p class="subtitle">
+      Click channels to add/remove them   
+    </p>
    <div class="field has-addons">
   <p class='control'>
     <%= f.text_field :name, class: 'input', placeholder: 'Name' %>
@@ -59,6 +62,9 @@ var toggleColour = function(element){
     <%= f.submit class: "button is-outlined" %>
   </p>
 </div>
+</div>
+  </div>
+<br>
   <div class="columns is-multiline">
 
   <% @user_subscriptions.each do |user_subscription| %>
