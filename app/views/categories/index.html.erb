@@ -1,33 +1,28 @@
-<div class="card">
-  <div class="card-content">
-    <p class="title ">
-      Your different categories live here
-    </p>
-    <p class="subtitle">
-      View edit or delete as you wish  
-    </p>
-  </div>
-</div>
+  <section class="section">
+  </section>
 
-<div class="columns is-multiline">
-  <% @categories.each do |category| %>
-    <div class="column is-one-quarter">
-      <div id=<%=category.id%> class="box" )>
-        <h5 class="title is-5"><%= category.name %></h5>
-      <div class="columns">
-        <div class="column">
-          <p class="subtitle"> <%= link_to 'Show', category_path(category) %> </p>
+
+<div class="container">
+  <div class="columns is-multiline">
+    <% @categories.each do |category| %>
+      <div class="column is-one-quarter">
+        <div id=<%=category.id%> class="box" )>
+          <h5 class="title is-5"><%= category.name %></h5>
+        <div class="columns">
+          <div class="column">
+            <p class="subtitle"> <%= link_to 'Watch', category_path(category) %> </p>
+          </div>
+          <div class ="column">
+            <p class="subtitle"> <%= link_to 'Edit', edit_category_path(category) %></p>
+          </div>
+          <div class="column">
+            <p class="subtitle"> <%= link_to 'Delete', category_path(category),
+                method: :delete,
+                data: { confirm: 'Are you sure?' } %></p>
+          </div>
         </div>
-        <div class ="column">
-          <p class="subtitle"> <%= link_to 'Edit', edit_category_path(category) %></p>
-        </div>
-        <div class="column">
-          <p class="subtitle"> <%= link_to 'Destroy', category_path(category),
-              method: :delete,
-              data: { confirm: 'Are you sure?' } %></p>
         </div>
       </div>
-      </div>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 </div>
