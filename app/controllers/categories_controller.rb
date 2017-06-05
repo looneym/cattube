@@ -4,6 +4,11 @@ class CategoriesController < ApplicationController
     @categories = current_user.categories
   end
 
+  def edit
+    @user_subscriptions = current_user.user_subscriptions
+    @category = Category.find(params[:id])
+  end
+
   def show
     @category = Category.find(params[:id])
     @recent_video_ids = @category.get_recent_videos.to_json
@@ -15,36 +20,22 @@ class CategoriesController < ApplicationController
   end
 
   def create
-
-    # TODO: should this be seperated out or put in the params method?
-    # extract channel_ids and remove empty strings
-    hash_params = category_params.to_h
-    ids =  hash_params[:channel_ids][:ids]
-    ids.each  {|id| ids.delete(id) if id.blank? }
-
-    # TODO: this seems excessivly verbose, clean up?
-    @category = Category.new()
-    @category.name = hash_params[:name]
-    @user = current_user
-    @category.user = @user
+    @category = Category.new(
+      name: params[:category][:name], 
+      user: current_user )
     @category.save!
-
-    # TODO: there should be a method to copy us -> s
+             
+    ids = extract_ids
     ids.each do |id|
-      s = Subscription.new()
+      # Create a new Subscription from the UserSubscription 
       us = UserSubscription.where(channel_id: id, user: current_user).first
-      puts us
-      puts us.title
-      s.title = us.title
-      s.description = us.description
-      s.image_url = us.image_url
-      s.video_count = us.video_count
-      s.channel_id = id
-      s.user_id = current_user.id
+      s = Subscription.new()
+      s.createFromUserSubscription(us)
       s.save!
-      cs = CategorySubscription.new
-      cs.category = @category
-      cs.subscription_id = s.id
+      # relationship entity to link Category and Subscription entities
+      cs = CategorySubscription.new(
+        category: @category,
+        subscription_id: s.id)
       cs.save!
     end
 
@@ -62,6 +53,13 @@ class CategoriesController < ApplicationController
     def category_params
       params.require(:category)
       .permit(:name, :channel_ids => [ :ids => []])
+    end
+
+    def extract_ids
+      hash_params = category_params.to_h
+      ids =  hash_params[:channel_ids][:ids]
+      ids.each  {|id| ids.delete(id) if id.blank? }
+      return ids
     end
 
 end
